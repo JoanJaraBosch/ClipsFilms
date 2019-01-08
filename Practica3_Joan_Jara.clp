@@ -18,7 +18,7 @@
 	(role abstract)
 	(slot plorar (default yes))
 	(slot riure (default no))
-	(slot edat (range 14 150))
+	(slot edat (range 13 150) (default 14))
 	(slot acaba (type SYMBOL) (allowed-symbols be malament))
 )
 
@@ -26,7 +26,7 @@
 	(is-a Pelicules)
 	(role abstract)
 	(slot plorar (default no))
-	(slot edat (range 0 150))
+	(slot edat (range 0 150) (default 12))
 	(slot riure (default yes))
 )
 
@@ -34,22 +34,22 @@
 	(is-a Pelicules)
 	(role abstract)
 	(slot plorar (default no))
-	(slot edat (range 0 150))
-	(slot epoca (type SYMBOL) (allowed-symbols prehistorica futurista moderna classica mediaval))
+	(slot edat (range 0 150) (default 12))
+	(slot epoca (type SYMBOL) (allowed-symbols prehistorica futurista moderna classica mediaval) (default moderna))
 )
 
 (defclass Por
 	(is-a Pelicules)
 	(role abstract)
 	(slot plorar (default yes))
-	(slot edat (range 18 150))
+	(slot edat (range 17 150) (default 18))
 )
 
 (defclass Tranquiles
 	(is-a Pelicules)
 	(role abstract)
 	(slot plorar (default no))
-	(slot edat (range 0 150))
+	(slot edat (range 0 150)(default 12))
 )
 
 (defclass Drama
@@ -86,14 +86,14 @@
 	(pattern-match reactive)
 	(slot riure (default yes))
 	(slot plorar (default yes))
-	(slot edat (range 14 150))
+	(slot edat (range 14 150) (default 14))
 )
 
 (defclass Fantasia
 	(is-a Emocionants)
 	(role concrete)
 	(pattern-match reactive)
-	(slot epoca (allowed-symbols mediaval futurista moderna))
+	(slot epoca (allowed-symbols mediaval futurista moderna) (default futurista))
 )
 
 (defclass Aventura
@@ -111,14 +111,14 @@
 	(is-a Emocionants)
 	(role concrete)
 	(pattern-match reactive)
-	(slot personatges (type SYMBOL) (allowed-symbols mags extraterrestres mutants deus))
+	(slot personatges (type SYMBOL) (allowed-symbols mags extraterrestres mutants deus) (default extraterrestres))
 )
 
 (defclass Superherois
 	(is-a Aventura CienciaFiccio)
 	(role concrete)
 	(pattern-match reactive)
-	(slot creador (type SYMBOL) (allowed-symbols DC Marvel))
+	(slot creador (type SYMBOL) (allowed-symbols DC Marvel) (default Marvel))
 )
 
 (defclass Espacials
@@ -131,21 +131,21 @@
 	(is-a Accio)
 	(role concrete)
 	(pattern-match reactive)
-	(slot tipusEsport (type SYMBOL) (allowed-symbols basquet futbol artsMarcials))
+	(slot tipusEsport (type SYMBOL) (allowed-symbols basquet futbol artsMarcials) (default futbol))
 )
 
 (defclass Conduccio
 	(is-a Accio)
 	(role concrete)
 	(pattern-match reactive)
-	(slot conductors (type SYMBOL) (allowed-symbols motoristes cotxes))
+	(slot conductors (type SYMBOL) (allowed-symbols motoristes cotxes) (default cotxes))
 )
 
 (defclass Monstres
 	(is-a Por)
 	(role concrete)
 	(pattern-match reactive)
-	(slot tipusMonstres (type SYMBOL) (allowed-symbols vampirs zombies aliens))
+	(slot tipusMonstres (type SYMBOL) (allowed-symbols vampirs zombies aliens monstres) (default monstres))
 )
 
 (defclass Suspense
@@ -176,14 +176,14 @@
 	(is-a Tranquiles)
 	(role concrete)
 	(pattern-match reactive)
-	(slot dibuixades (type SYMBOL) (allowed-symbols 3d 2d plastilina manga))
+	(slot dibuixades (type SYMBOL) (allowed-symbols 3d 2d plastilina manga) (default 2d))
 )
 
 (defclass Documentals
 	(is-a Tranquiles)
 	(role concrete)
 	(pattern-match reactive)
-	(slot tipusDocumentals (type SYMBOL) (allowed-symbols animals historiques cosHuma))
+	(slot tipusDocumentals (type SYMBOL) (allowed-symbols animals historiques cosHuma naturalesa) (default naturalesa))
 )
 
 (defclass Usuari
@@ -204,11 +204,16 @@
 	(slot festaPrefe (default nil))
 	(slot pasarTemps (default nil))
 	(slot pensar (default nil))
+	(slot pelicules (type INTEGER) (default 5))
 )
 
 
 (defmessage-handler Pelicules canvia-puntuacio (?punt)
    (bind ?self:puntuacio (+ ?punt ?self:puntuacio))
+)
+
+(defmessage-handler Pelicules canvia-ordenar (?punt)
+   (bind ?self print)
 )
 
 (defmessage-handler Pelicules canvia-puntuacio-negatiu (?punt)
@@ -269,4 +274,8 @@
 
 (defmessage-handler Usuari canvia-pensar (?pens)
    (bind ?self:pensar ?pens)
+)
+
+(defmessage-handler Usuari canvia-pelicules (?peli)
+   (bind ?self:pelicules (- ?self:pelicules ?peli))
 )

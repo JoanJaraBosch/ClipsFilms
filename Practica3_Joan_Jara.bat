@@ -31,6 +31,7 @@
 (make-instance ElDictador of HumorNegre)
 (make-instance ParanormalActivity of Terror)
 (make-instance FoodInc of Documentals)
+(modify-instance FoodInc (tipusDocumentals animals))
 (make-instance Usuari of Usuari)
 
 
@@ -515,4 +516,15 @@
 	)
 	)
 	(printout T "La resposata escollida es : " ?r crlf)
+)
+
+(defrule order
+	(declare (salience -1))
+	?obj <- (object (is-a Usuari) (pelicules ?s&:(> ?s 0)))
+	?obj2 <- (object (is-a Pelicules) (puntuacio ?p))
+	(not (object (is-a Pelicules) (puntuacio ?q&:(> ?q ?p))))
+	=>
+	(send ?obj canvia-pelicules 1)
+	(send ?obj2 print)
+	(send ?obj2 delete)
 )
