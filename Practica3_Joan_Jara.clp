@@ -190,9 +190,9 @@
 	(is-a USER)
 	(role concrete)
 	(pattern-match reactive)
-	(slot edat (type INTEGER) (default -1))
-	(slot sexe (default nil))
-	(slot estatCivil (default nil))
+	(slot edat (type SYMBOL) (default nil))
+	(slot sexe (type SYMBOL) (default nil))
+	(slot estatCivil (type SYMBOL) (default nil))
 	(slot vehicle (default nil))
 	(slot social (default nil))
 	(slot emocionalment (default nil))
@@ -203,11 +203,16 @@
 	(slot viatge (default nil))
 	(slot festaPrefe (default nil))
 	(slot pasarTemps (default nil))
+	(slot pensar (default nil))
 )
 
 
 (defmessage-handler Pelicules canvia-puntuacio (?punt)
    (bind ?self:puntuacio (+ ?punt ?self:puntuacio))
+)
+
+(defmessage-handler Pelicules canvia-puntuacio-negatiu (?punt)
+   (bind ?self:puntuacio (- ?self:puntuacio ?punt))
 )
 
 (defmessage-handler Usuari canvia-edat (?ed)
@@ -220,4 +225,48 @@
 
 (defmessage-handler Usuari canvia-estat (?estat)
    (bind ?self:estatCivil ?estat)
+)
+
+(defmessage-handler Usuari canvia-vehicle (?vel)
+   (bind ?self:vehicle ?vel)
+)
+
+(defmessage-handler Usuari canvia-social (?sol)
+   (bind ?self:social ?sol)
+)
+
+(defmessage-handler Usuari canvia-emocionalment (?em)
+   (bind ?self:emocionalment ?em)
+)
+
+(defmessage-handler Usuari canvia-esportista (?es)
+   (bind ?self:esportista ?es)
+)
+
+(defmessage-handler Usuari canvia-tipusMusica (?mus)
+   (bind ?self:tipusMusica ?mus)
+)
+
+(defmessage-handler Usuari canvia-professioEscolliries (?prof)
+   (bind ?self:professioEscolliries ?prof)
+)
+
+(defmessage-handler Usuari canvia-tempsLliure (?temps)
+   (bind ?self:tempsLliure ?temps)
+)
+
+(defmessage-handler Usuari canvia-viatge (?vi)
+   (bind ?self:viatge ?vi)
+)
+
+(defmessage-handler Usuari canvia-festaPrefe (?festa)
+   (bind ?self:festaPrefe ?festa)
+)
+
+(defmessage-handler Usuari canvia-pasarTemps (?pas)
+   (bind ?self:pasarTemps ?pas)
+)
+
+(defmessage-handler Usuari canvia-pensar (?pens)
+   (bind ?self:pensar ?pens)
 )

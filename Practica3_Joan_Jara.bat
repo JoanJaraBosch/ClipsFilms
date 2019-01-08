@@ -35,11 +35,14 @@
 
 
 (defrule edatQuest
-	?obj <- (object (is-a Usuari) (edat -1))
+	?obj <- (object (is-a Usuari) (edat nil))
 	?obj2 <- (object (is-a Tristes))
 	?obj3 <- (object (is-a Por))
 	?obj4 <- (object (is-a HumorNegre))
 	?obj5 <- (object (is-a ComediaRomantica))
+	?obj6 <- (object (is-a Infantils))
+	?obj7 <- (object (is-a Riure))
+	?obj8 <- (object (is-a Aventura))
 	=>
 	(printout T "Quina edat tens?" crlf)
 	(printout T "a) Entre 0-13" crlf)
@@ -53,14 +56,20 @@
 	(bind ?obj3 delete)
 	(bind ?obj4 delete)
 	(bind ?obj5 delete)
-	(send ?obj canvia-edat 0)
+	(bind ?obj6 canvia-puntuacio 100)
+	(send ?obj canvia-edat a)
 	else(if(eq ?r b)
 	then
 	(bind ?obj3 delete)
 	(bind ?obj4 delete)
-	(send ?obj canvia-edat 1)
+	(bind ?obj7 canvia-puntuacio 100)
+	(bind ?obj8 canvia-puntuacio 100)
+	(send ?obj canvia-edat b)
 	else(if (eq ?r c)
-	(send ?obj canvia-edat 2)
+	then
+	(send ?obj canvia-edat c)
+	(bind ?obj3 canvia-puntuacio 100)
+	(bind ?obj4 canvia-puntuacio 100)
 	)
 	)
 	)
@@ -69,6 +78,29 @@
 
 (defrule sexQuest
 	?obj <- (object (is-a Usuari) (sexe nil))
+	?obj2 <- (object (is-a Tristes))
+	?obj3 <- (object (is-a Emocionants))
+	=>
+	(printout T "A quin sexe pertanys?" crlf)
+	(printout T "a) Femení" crlf)
+	(printout T "b) Masculí" crlf)
+	(printout T "Escriviu a o b siusplau." crlf)
+	(bind ?r (read))
+	(if(eq ?r a)
+	then
+	(send ?obj2 canvia-puntuacio 100)
+	(send ?obj canvia-sexe femeni)
+	else(if(eq ?r b)
+	then
+	(send ?obj3 canvia-puntuacio 100)
+	(send ?obj canvia-sexe masculi)
+	)
+	)
+	(printout T "La resposata escollida es : " ?r crlf)
+)
+
+(defrule parellaQuest
+	?obj <- (object (is-a Usuari) (estatCivil nil))
 	?obj2 <- (object (is-a Tristes))
 	?obj3 <- (object (is-a Aventura))
 	?obj4 <- (object (is-a Accio))
@@ -86,7 +118,7 @@
 	(send ?obj canvia-estat parella)
 	else(if(eq ?r b)
 	then
-	(send ?obj1 canvia-puntuacio 100)
+	(send ?obj5 canvia-puntuacio 100)
 	(send ?obj3 canvia-puntuacio 100)
 	(send ?obj canvia-estat noparella)
 	)
@@ -94,9 +126,180 @@
 	(printout T "La resposata escollida es : " ?r crlf)
 )
 
-(defrule parellaQuest
-		?obj <- (object (is-a Usuari) (estatCivil nil))
-		?obj2 <- (object (is-a Tristes))
-		?obj3 <- (object (is-a Emocionants))
-		=>
+(defrule emocioQuest
+	?obj <- (object (is-a Usuari) (emocionalment nil))
+	?obj2 <- (object (is-a Tristes))
+	?obj3 <- (object (is-a Riure))
+	?obj4 <- (object (is-a Accio))
+	=>
+	(printout T "Tens parella?" crlf)
+	(printout T "a) Trist/a" crlf)
+	(printout T "b) Normal" crlf)
+	(printout T "c) Content" crlf)
+	(printout T "Escriviu a, b o c siusplau." crlf)
+	(bind ?r (read))
+	(if(eq ?r a)
+	then
+	(send ?obj2 canvia-puntuacio 100)
+	(send ?obj canvia-emocionalment trist)
+	else(if(eq ?r b)
+	then
+	(send ?obj4 canvia-puntuacio 100)
+	(send ?obj canvia-emocionalment normal)
+	else(if(eq ?r c)
+	then
+	(send ?obj3 canvia-puntuacio 100)
+	(send ?obj canvia-emocionalment content)
+	)
+	)
+	)
+	(printout T "La resposata escollida es : " ?r crlf)
+)
+
+(defrule esportsQuest
+	?obj <- (object (is-a Usuari) (esportista nil))
+	?obj2 <- (object (is-a Esports))
+	=>
+	(printout T "Practiques algun esport?" crlf)
+	(printout T "a) Si" crlf)
+	(printout T "b) No" crlf)
+	(printout T "Escriviu a o b siusplau." crlf)
+	(bind ?r (read))
+	(if(eq ?r a)
+	then
+	(send ?obj2 canvia-puntuacio 100)
+	(send ?obj canvia-esportista si)
+	else(if(eq ?r b)
+	then
+	(send ?obj2 canvia-puntuacio-negatiu 50)
+	(send ?obj canvia-esportista no)
+	)
+	)
+	(printout T "La resposata escollida es : " ?r crlf)
+)
+
+(defrule vehicleQuest
+	?obj <- (object (is-a Usuari) (vehicle nil))
+	?obj2 <- (object (is-a Conduccio))
+	=>
+	(printout T "Tens cotxe o moto?" crlf)
+	(printout T "a) Si" crlf)
+	(printout T "b) No" crlf)
+	(printout T "Escriviu a o b siusplau." crlf)
+	(bind ?r (read))
+	(if(eq ?r a)
+	then
+	(send ?obj2 canvia-puntuacio 100)
+	(send ?obj canvia-vehicle si)
+	else(if(eq ?r b)
+	then
+	(send ?obj2 canvia-puntuacio-negatiu 50)
+	(send ?obj canvia-vehicle no)
+	)
+	)
+	(printout T "La resposata escollida es : " ?r crlf)
+)
+
+(defrule pensarQuest
+	?obj <- (object (is-a Usuari) (pensar nil))
+	?obj2 <- (object (is-a Por))
+	?obj3 <- (object (is-a Tranquiles))
+	=>
+	(printout T "Tagrada pensar?" crlf)
+	(printout T "a) Si" crlf)
+	(printout T "b) No" crlf)
+	(printout T "Escriviu a o b siusplau." crlf)
+	(bind ?r (read))
+	(if(eq ?r a)
+	then
+	(send ?obj2 canvia-puntuacio 100)
+	(send ?obj3 canvia-puntuacio-negatiu 50)
+	(send ?obj canvia-pensar si)
+	else(if(eq ?r b)
+	then
+	(send ?obj3 canvia-puntuacio 100)
+	(send ?obj2 canvia-puntuacio-negatiu 50)
+	(send ?obj canvia-pensar no)
+	)
+	)
+	(printout T "La resposata escollida es : " ?r crlf)
+)
+
+(defrule socialQuest
+	?obj <- (object (is-a Usuari) (social nil))
+	?obj2 <- (object (is-a Accio))
+	?obj3 <- (object (is-a Emocionants))
+	?obj4 <- (object (is-a Riure))
+	?obj5 <- (object (is-a Tranquiles))
+	?obj6 <- (object (is-a Por))
+	?obj7 <- (object (is-a Aventura))
+	=>
+	(printout T "Quedes amb gent?" crlf)
+	(printout T "a) Molt sovint" crlf)
+	(printout T "b) No gaire sovint" crlf)
+	(printout T "c) Ocasionalment" crlf)
+	(printout T "Escriviu a, b o c siusplau." crlf)
+	(bind ?r (read))
+	(if(eq ?r a)
+	then
+	(send ?obj2 canvia-puntuacio 100)
+	(send ?obj3 canvia-puntuacio 100)
+	(send ?obj4 canvia-puntuacio 100)
+	(send ?obj5 canvia-puntuacio 10)
+	(send ?obj6 canvia-puntuacio 10)
+	(send ?obj canvia-social si)
+	else(if(eq ?r b)
+	then
+	(send ?obj5 canvia-puntuacio 100)
+	(send ?obj6 canvia-puntuacio 100)
+	(send ?obj2 canvia-puntuacio 10)
+	(send ?obj3 canvia-puntuacio 10)
+	(send ?obj4 canvia-puntuacio 10)
+	(send ?obj canvia-social no)
+	)
+	else(if(eq ?r c)
+	then
+	(send ?obj2 canvia-puntuacio 100)
+	(send ?obj3 canvia-puntuacio 100)
+	(send ?obj7 canvia-puntuacio 50)
+	(send ?obj canvia-social ocasionalment)
+	)
+	)
+	(printout T "La resposata escollida es : " ?r crlf)
+)
+
+(defrule musicaQuest
+	?obj <- (object (is-a Usuari) (tipusMusica nil))
+	?obj2 <- (object (is-a Accio))
+	?obj3 <- (object (is-a Por))
+	?obj4 <- (object (is-a Tristes))
+	?obj5 <- (object (is-a Tranquiles))
+	?obj6 <- (object (is-a Aventura))
+	?obj7 <- (object (is-a Riure))
+	=>
+	(printout T "Quedes amb gent?" crlf)
+	(printout T "a) Rock&Roll" crlf)
+	(printout T "b) Classica" crlf)
+	(printout T "c) Pop" crlf)
+	(printout T "Escriviu a, b o c siusplau." crlf)
+	(bind ?r (read))
+	(if(eq ?r a)
+	then
+	(send ?obj2 canvia-puntuacio 100)
+	(send ?obj3 canvia-puntuacio 100)
+	(send ?obj canvia-tipusMusica rock)
+	else(if(eq ?r b)
+	then
+	(send ?obj5 canvia-puntuacio 100)
+	(send ?obj4 canvia-puntuacio 100)
+	(send ?obj canvia-tipusMusica classica)
+	)
+	else(if(eq ?r c)
+	then
+	(send ?obj6 canvia-puntuacio 100)
+	(send ?obj7 canvia-puntuacio 100)
+	(send ?obj canvia-tipusMusica pop)
+	)
+	)
+	(printout T "La resposata escollida es : " ?r crlf)
 )
