@@ -195,7 +195,7 @@
 
 (defrule esportA
 	?obj <- (object (is-a Usuari) (esportista a))
-	?obj2 <- (object (is-a Accio)(esportista nil))
+	?obj2 <- (object (is-a Esports)(esportista nil))
 	=>
 	(send ?obj2 canvia-puntuacio 100)
 	(send ?obj2 canvia-esportP a)
@@ -203,7 +203,7 @@
 
 (defrule esportB
 	?obj <- (object (is-a Usuari) (esportista b))
-	?obj2 <- (object (is-a Accio)(esportista nil))
+	?obj2 <- (object (is-a Esports)(esportista nil))
 	=>
 	(send ?obj2 canvia-puntuacio-negatiu 100)
 	(send ?obj2 canvia-esportP b)
