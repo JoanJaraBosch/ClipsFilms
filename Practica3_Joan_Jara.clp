@@ -11,6 +11,20 @@
    (slot plorar (type SYMBOL) (allowed-symbols yes no))
    (slot riure (type SYMBOL) (allowed-symbols yes no))
    (slot edat (type INTEGER))
+   (slot edatP (type SYMBOL) (default nil))
+	(slot sexe (type SYMBOL) (default nil))
+	(slot estatCivil (type SYMBOL) (default nil))
+	(slot vehicle (default nil))
+	(slot social (default nil))
+	(slot emocionalment (default nil))
+	(slot esportista (default nil))
+	(slot tipusMusica (default nil))
+	(slot professioEscolliries (default nil))
+	(slot tempsLliure (default nil))
+	(slot viatge (default nil))
+	(slot festaPrefe (default nil))
+	(slot pasarTemps (default nil))
+	(slot pensar (default nil))
 )
 
 (defclass Tristes
@@ -222,6 +236,62 @@
 
 (defmessage-handler Usuari canvia-edat (?ed)
    (bind ?self:edat ?ed)
+)
+
+(defmessage-handler Pelicules canvia-edatP (?ed)
+	(bind ?self:edatP ?ed)
+)
+
+(defmessage-handler Pelicules canvia-estatP (?ed)
+	(bind ?self:estatCivil ?ed)
+)
+
+(defmessage-handler Pelicules canvia-emocioP (?ed)
+	(bind ?self:emocionalment ?ed)
+)
+
+(defmessage-handler Pelicules canvia-musicaP (?ed)
+	(bind ?self:tipusMusica ?ed)
+)
+
+(defmessage-handler Pelicules canvia-profeP (?ed)
+	(bind ?self:professioEscolliries ?ed)
+)
+
+(defmessage-handler Pelicules canvia-tempsLliureP (?ed)
+	(bind ?self:tempsLliure ?ed)
+)
+
+(defmessage-handler Pelicules canvia-festaP (?ed)
+	(bind ?self:festaPrefe ?ed)
+)
+
+(defmessage-handler Pelicules canvia-viatgeP (?ed)
+	(bind ?self:viatge ?ed)
+)
+
+(defmessage-handler Pelicules canvia-pasarTempsP (?ed)
+	(bind ?self:pasarTemps ?ed)
+)
+
+(defmessage-handler Pelicules canvia-vehicleP (?ed)
+	(bind ?self:vehicle ?ed)
+)
+
+(defmessage-handler Pelicules canvia-pensarP (?ed)
+	(bind ?self:pensar ?ed)
+)
+
+(defmessage-handler Pelicules canvia-socialP (?ed)
+	(bind ?self:social ?ed)
+)
+
+(defmessage-handler Pelicules canvia-esportP (?ed)
+	(bind ?self:esportista ?ed)
+)
+
+(defmessage-handler Pelicules canvia-sexeP (?ed)
+	(bind ?self:sexe ?ed)
 )
 
 (defmessage-handler Usuari canvia-sexe (?sex)
